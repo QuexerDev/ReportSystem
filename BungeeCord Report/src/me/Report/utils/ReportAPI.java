@@ -41,6 +41,7 @@ public class ReportAPI {
 		ProxiedPlayer reporter = BungeeCord.getInstance().getPlayer(von);
 		ProxiedPlayer target = BungeeCord.getInstance().getPlayer(name);
 		if(target != null) {
+			if(target != reporter) {
 		String UUID = UUIDFetcher.getUUID(name).toString();
 		int Count = getCount(name)+1;
 		if(!hatBereitsReportet(name, von)){
@@ -77,6 +78,9 @@ public class ReportAPI {
 		} else {
 			reporter.sendMessage(Main.pf+"§cDieser Spieler wurde nicht gemeldet§8!");
 			}
+		} else {
+			reporter.sendMessage(Main.pf+"§cDu kannst dich nicht selber Melden§8!");
+		}
 		
 		
 		
