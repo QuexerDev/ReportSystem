@@ -14,8 +14,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import me.Report.main.Main;
@@ -114,6 +116,23 @@ public class ItemInteract implements Listener {
 		}
 		p.sendPluginMessage(Main.getPlugin(Main.class), "BungeeCord", b.toByteArray());
 		
+		
+	}
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		Player p = e.getPlayer();
+		if(p.hasPermission("report.accept")) {
+			ItemStack is = new ItemStack(Main.material);
+			ItemMeta meta = is.getItemMeta();
+			meta.setDisplayName(Main.ItemName);
+			List<String> lore = new ArrayList<>();
+			lore.add("§7Rechtsklick um alle Reports zu sehen");
+			meta.setLore(lore);
+			
+			is.setItemMeta(meta);
+			
+			p.getInventory().setItem(Main.slot, is);
+		}
 		
 	}
 
