@@ -72,7 +72,7 @@ public class ReportAPI {
 		}
 		
 		} else {
-			reporter.sendMessage(Main.pf+"§7cDu hast diesen Spieler bereits gemeldet§8!");
+			reporter.sendMessage(Main.pf+"§cDu hast diesen Spieler bereits gemeldet§8!");
 		}
 		} else {
 			reporter.sendMessage(Main.pf+"§cDieser Spieler wurde nicht gemeldet§8!");
@@ -92,13 +92,14 @@ public class ReportAPI {
 		if(isReportet(name)) {
 			accepter.sendMessage(Main.pf+"§7Du bearbeitest nun den Report von §c"+name+" §7auf dem Server §e"+target.getServer().getInfo().getName());
 			accepter.connect(target.getServer().getInfo());
-			deleteReport(name);
+			
 			for(String names : getReporter(name)) {
 				if(BungeeCord.getInstance().getPlayer(names) != null) {
 					BungeeCord.getInstance().getPlayer(names).sendMessage(Main.pf+"§7Dein Report an §c"+name+" §7wird nun bearbeitet§8.\n"
 																		+ Main.pf+"§7Vielen Dank für deine Aufmerksamteit§8!");
 				}
 			}
+			deleteReport(name);
 		} else {
 			accepter.sendMessage(Main.pf+"§7Dieser Report wird bereits bearbeitet§8!");
 		}
