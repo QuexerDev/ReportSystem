@@ -62,7 +62,7 @@ public class Main extends JavaPlugin{
 		
 	}
 	 public void loadConfig() {
-	        
+	        getConfig().options().copyDefaults(true);
 	            getConfig().addDefault("Settings.prefix", "&8[&bReport&8] ");
 	            getConfig().addDefault("Settings.ItemName", "&8<< &cReport &8>>");
 	            getConfig().addDefault("Settings.ItemSlot", 4);
