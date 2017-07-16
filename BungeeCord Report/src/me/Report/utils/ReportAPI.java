@@ -76,10 +76,11 @@ public class ReportAPI {
 			reporter.sendMessage(Main.pf+"§cDu hast diesen Spieler bereits gemeldet§8!");
 		}
 		} else {
-			reporter.sendMessage(Main.pf+"§cDieser Spieler wurde nicht gemeldet§8!");
-			}
+				reporter.sendMessage(Main.pf+"§cDu kannst dich nicht selber melden§8!");
+		}
+			
 		} else {
-			reporter.sendMessage(Main.pf+"§cDu kannst dich nicht selber Melden§8!");
+			reporter.sendMessage(Main.pf+"§cDieser Spieler ist nicht online§8!");
 		}
 		
 		

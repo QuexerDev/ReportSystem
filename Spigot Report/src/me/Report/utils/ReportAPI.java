@@ -80,7 +80,7 @@ public class ReportAPI {
 			while(rs.next()) {
 				String von = rs.getString("UUID");
 				if(!names.contains(von)) {
-					names.add(UUIDFetcher.getName(UUID.fromString(rs.getString(von))));
+					names.add(UUIDFetcher.getName(UUID.fromString(von)));
 				}
 			}
 		} catch (SQLException e) {

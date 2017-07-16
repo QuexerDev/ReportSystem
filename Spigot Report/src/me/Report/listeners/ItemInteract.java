@@ -34,9 +34,22 @@ public class ItemInteract implements Listener {
 			if(p.getItemInHand().getTypeId() == Main.material
 			   && p.getItemInHand().getItemMeta().getDisplayName() == Main.ItemName 
 			   && p.getInventory().getItem(Main.slot).getTypeId() == Main.material) {
-				
-				Inventory inv = Bukkit.createInventory(null, 56, " §cReports");
-				
+				e.setCancelled(true);
+				Inventory inv = Bukkit.createInventory(null, 54, " §cReports");
+				if(ReportAPI.getReportetPlayers().size() == 0) {
+					
+					
+					ItemStack is = new ItemStack(Material.REDSTONE);
+					ItemMeta meta = is.getItemMeta();
+					meta.setDisplayName("§cEs gibt keine offenen Reports");
+					List<String> lore = new ArrayList<>();
+					lore.add("§7Warte noch ein bischen ab");
+					meta.setLore(lore);
+					
+					is.setItemMeta(meta);
+					
+					inv.setItem(22, is);
+				} else {
 				List<ItemStack> importantReports = new ArrayList<>();
 				List<ItemStack> normalReports = new ArrayList<>();
 				
@@ -70,6 +83,7 @@ public class ItemInteract implements Listener {
 					}
 					
 				}
+				
 				for (int i = 0; i < inv.getSize(); i++) {
 					
 					for(ItemStack ir : importantReports) {
@@ -81,6 +95,7 @@ public class ItemInteract implements Listener {
 						
 					}
 					
+				}
 				}
 				p.openInventory(inv);
 				
@@ -94,6 +109,7 @@ public class ItemInteract implements Listener {
 		if(e.getClickedInventory() != null) {
 			if(e.getCurrentItem().getType() == Material.SKULL_ITEM) {
 				if(e.getCurrentItem().getItemMeta().getLore() != null) {
+					e.setCancelled(true);
 					String[] itemname = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
 					String name = ChatColor.stripColor(itemname[0]);
 					ReportAPI.acceptReport(name, UUIDFetcher.getName(p.getUniqueId()));
