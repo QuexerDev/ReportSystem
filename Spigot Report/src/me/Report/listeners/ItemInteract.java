@@ -31,9 +31,9 @@ public class ItemInteract implements Listener {
 	public void onInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if(p.getItemInHand().getType() == Main.material 
+			if(p.getItemInHand().getTypeId() == Main.material
 			   && p.getItemInHand().getItemMeta().getDisplayName() == Main.ItemName 
-			   && p.getInventory().getItem(Main.slot).getType() == Main.material) {
+			   && p.getInventory().getItem(Main.slot).getTypeId() == Main.material) {
 				
 				Inventory inv = Bukkit.createInventory(null, 56, " §cReports");
 				

@@ -23,7 +23,7 @@ public class Main extends JavaPlugin{
 	public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 	public static String pf;
 	public static String ItemName;
-	public static Material material;
+	public static int material;
 	public static Integer slot;
 	
 	
@@ -66,7 +66,7 @@ public class Main extends JavaPlugin{
 	            getConfig().addDefault("Settings.prefix", "&8[&bReport&8] ");
 	            getConfig().addDefault("Settings.ItemName", "&8<< &cReport &8>>");
 	            getConfig().addDefault("Settings.ItemSlot", 4);
-	            getConfig().addDefault("Settings.Material", Material.WATCH);
+	            getConfig().addDefault("Settings.Material", 1);
 	        
 
 	            
@@ -88,7 +88,7 @@ public class Main extends JavaPlugin{
 	        	 pf = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.prefix"));
 	        	 ItemName = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.ItemName"));
 	        	 slot = getConfig().getInt("Settings.ItemSlot");
-	        	 material = (Material) getConfig().get("Settings.Material");
+	        	 material = getConfig().getInt("Settings.Material");
 
 
 	    }
