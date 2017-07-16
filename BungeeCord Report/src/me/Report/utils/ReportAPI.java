@@ -43,7 +43,7 @@ public class ReportAPI {
 		if(target != null) {
 		String UUID = UUIDFetcher.getUUID(name).toString();
 		int Count = getCount(name)+1;
-		
+		if(!hatBereitsReportet(name, von)){
 		MySQL.update("INSERT INTO Report(UUID, Grund, von) VALUES ('"+UUID+"','"+Grund+"','"+von+"')");
 		
 		reporter.sendMessage(Main.pf+"§7Du hast den Spieler §c"+name+" §7erfolgreich mit dem Grund§8: §e"+Grund+" §7gemeldet§8!");
@@ -51,12 +51,12 @@ public class ReportAPI {
 		TextComponent text;
 		if(Count <= 4) {
 			text = new TextComponent(Main.pf+"§7Der Spieler §c"+name+" §7wurde mit dem Grund §e"+Grund+" §7gemeldet ");
-			TextComponent extra = new TextComponent("§8[§aBearbeiten§8]");
+			TextComponent extra = new TextComponent("§8[§aBearbeiten§8] §7| §c"+Count);
 			extra.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/report accept "+name));
 			text.addExtra(extra);
 		} else {
 			text = new TextComponent(Main.pf+"§4§l"+name+" §4§lwurde sehr oft gemeldet ");
-			TextComponent extra = new TextComponent("§8[§4Bearbeiten§8]");
+			TextComponent extra = new TextComponent("§8[§4Bearbeiten§8] §7| §c"+Count);
 			extra.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/report accept "+name));
 			text.addExtra(extra);
 		}
@@ -72,8 +72,11 @@ public class ReportAPI {
 		}
 		
 		} else {
-		reporter.sendMessage(Main.pf+"§cDieser Spieler wurde nicht gemeldet§8!");
+			reporter.sendMessage(Main.pf+"§7cDu hast diesen Spieler bereits gemeldet§8!");
 		}
+		} else {
+			reporter.sendMessage(Main.pf+"§cDieser Spieler wurde nicht gemeldet§8!");
+			}
 		
 		
 		
@@ -138,6 +141,17 @@ public class ReportAPI {
 			e.printStackTrace();
 		}
 		return "§cNicht vorhanden§8!";
+	}
+	public static boolean hatBereitsReportet(String name, String von) {
+		if(isReportet(name)) {
+			if(getReporter(von).contains(name)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 	

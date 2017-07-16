@@ -18,8 +18,8 @@ public class Main extends Plugin{
 
 	public static String pf = "§8[§b§lReport§8] ";
 	public static List<String> reasons = new ArrayList<>();
-	 public static File file = new File("plugins//BanSystemByQuexer", "config.yml");
-	    public static File ordner = new File("plugins//BanSystemByQuexer");
+	 public static File file = new File("plugins//ReportSystemByQuexer", "config.yml");
+	    public static File ordner = new File("plugins//ReportSystemByQuexer");
 	    public static Configuration cfg;
 
 	@Override
@@ -70,7 +70,7 @@ public class Main extends Plugin{
 	        if(getConfig().get("Settings.prefix") != null) {
 	            pf = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.prefix"));
 	        } else {
-	            getConfig().set("Settings.prefix", "&8[&cBanSystem&8] ");
+	            getConfig().set("Settings.prefix", "&8[&bReport&8] ");
 	        }
 
 	        if(getConfig().get("MySQL.username") != null) {

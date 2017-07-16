@@ -23,7 +23,7 @@ public class Command_Report extends Command {
 			String name = args[0];
 			String Grund = args[1];
 				if(args[0].equalsIgnoreCase("accept")) {
-					ReportAPI.acceptReport(name, p.getName());
+					ReportAPI.acceptReport(args[1], p.getName());
 				} else {
 					
 					if(Main.reasons.contains(Grund)){
