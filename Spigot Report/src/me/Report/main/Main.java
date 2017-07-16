@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +22,9 @@ public class Main extends JavaPlugin{
 	public static File ordner = new File("plugins//ReportSystemByQuexer");
 	public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 	public static String pf;
+	public static String ItemName;
+	public static Material material;
+	public static Integer slot;
 	
 	
 	
@@ -44,7 +48,7 @@ public class Main extends JavaPlugin{
         
 
 
-
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         
         
         loadConfig();
@@ -58,29 +62,33 @@ public class Main extends JavaPlugin{
 		
 	}
 	 public void loadConfig() {
-	        if(getConfig().get("Settings.prefix") != null) {
-	            pf = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.prefix"));
-	        } else {
-	            getConfig().set("Settings.prefix", "&8[&bReport&8] ");
-	        }
+	        
+	            getConfig().addDefault("Settings.prefix", "&8[&bReport&8] ");
+	            getConfig().addDefault("Settings.ItemName", "&8<< &cReport &8>>");
+	            getConfig().addDefault("Settings.ItemSlot", 4);
+	            getConfig().addDefault("Settings.Material", Material.WATCH);
+	        
 
-	        if(getConfig().get("MySQL.username") != null) {
+	            
+	        	
+	            getConfig().addDefault("MySQL.username", "root");
+	            getConfig().addDefault("MySQL.password", "password");
+	            getConfig().addDefault("MySQL.database", "database");
+	            getConfig().addDefault("MySQL.host", "host");
+	            getConfig().addDefault("MySQL.port", 3306);
+	        
+
+	        	saveConfig();
+	        	
 	        	 MySQL.username = getConfig().getString("MySQL.username");
 	             MySQL.password = getConfig().getString("MySQL.password");
 	             MySQL.database = getConfig().getString("MySQL.database");
 	             MySQL.host = getConfig().getString("MySQL.host");
 	             MySQL.port = getConfig().getInt("MySQL.port");
-	        } else {
-	            getConfig().set("MySQL.username", "root");
-	            getConfig().set("MySQL.password", "password");
-	            getConfig().set("MySQL.database", "database");
-	            getConfig().set("MySQL.host", "host");
-	            getConfig().set("MySQL.port", 3306);
-	        }
-
-	        	saveConfig();
-
-
+	        	 pf = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.prefix"));
+	        	 ItemName = ChatColor.translateAlternateColorCodes('&', getConfig().getString("Settings.ItemName"));
+	        	 slot = getConfig().getInt("Settings.ItemSlot");
+	        	 material = (Material) getConfig().get("Settings.Material");
 
 
 	    }
