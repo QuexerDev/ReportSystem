@@ -35,7 +35,7 @@ public class ItemInteract implements Listener {
 			   && p.getItemInHand().getItemMeta().getDisplayName() == Main.ItemName 
 			   && p.getInventory().getItem(Main.slot).getTypeId() == Main.material) {
 				e.setCancelled(true);
-				Inventory inv = Bukkit.createInventory(null, 54, " §cReports");
+				Inventory inv = Bukkit.createInventory(null, 54, "§cReports");
 				if(ReportAPI.getReportetPlayers().size() == 0) {
 					
 					
@@ -55,45 +55,55 @@ public class ItemInteract implements Listener {
 				
 				for (String name : ReportAPI.getReportetPlayers()) {
 					
+					Player target = Bukkit.getPlayer(name);
 					if(ReportAPI.getCount(name) <= 4) {
+						if(target != null) {
 						ItemStack is = new ItemStack(Material.SKULL_ITEM, ReportAPI.getCount(name));
 						SkullMeta meta = (SkullMeta) is.getItemMeta();
-						meta.setDisplayName("§a"+name+" §7| §aKlicke zum bearbeiten");
+						meta.setDisplayName("§a"+name);
 						List<String> lore = new ArrayList<>();
 						lore.add("§7Grund§8: §e"+ReportAPI.getGrund(name));
+						lore.add("§7Klicke zum bearbeiten§8!");
 						meta.setLore(lore);
 						meta.setOwner(name);
 						is.setItemMeta(meta);
-						
+						if(!normalReports.contains(is)) {
 						normalReports.add(is);
-						
-						
+						}
+						}
 					} else {
+						
+						if(target != null) {
 						ItemStack is = new ItemStack(Material.SKULL_ITEM, ReportAPI.getCount(name));
 						SkullMeta meta = (SkullMeta) is.getItemMeta();
-						meta.setDisplayName("§c"+name+" §7| §aKlicke zum bearbeiten");
+						meta.setDisplayName("§c"+name);
 						List<String> lore = new ArrayList<>();
 						lore.add("§7Grund§8: §e"+ReportAPI.getGrund(name));
+						lore.add("§7Klicke zum bearbeiten§8!");
 						lore.add("§4§lWichtiger Report§8!");
 						meta.setLore(lore);
 						meta.setOwner(name);
 						is.setItemMeta(meta);
-						
+						if(!importantReports.contains(is)) {
 						importantReports.add(is);
+						}
+						}
 					}
 					
 				}
 				
-				for (int i = 0; i < inv.getSize(); i++) {
-					
+				
+				
+					int i = 0;
 					for(ItemStack ir : importantReports) {
-						inv.setItem(i, ir);
 						
+						inv.setItem(i, ir);
+						i = i+1;
 					}
 					for(ItemStack nr : normalReports) {
 						inv.setItem(i, nr);
 						
-					}
+					i = i+1;
 					
 				}
 				}
@@ -107,14 +117,16 @@ public class ItemInteract implements Listener {
 	public void onClick(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
 		if(e.getClickedInventory() != null) {
+			if(e.getInventory().getName() == "§cReports") {
+			e.setCancelled(true);
 			if(e.getCurrentItem().getType() == Material.SKULL_ITEM) {
 				if(e.getCurrentItem().getItemMeta().getLore() != null) {
-					e.setCancelled(true);
-					String[] itemname = e.getCurrentItem().getItemMeta().getDisplayName().split(" ");
-					String name = ChatColor.stripColor(itemname[0]);
-					ReportAPI.acceptReport(name, UUIDFetcher.getName(p.getUniqueId()));
+					
+					
+					String name = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
+					ReportAPI.acceptReport(name, p.getName());
 				}
-				
+			}
 				
 			}
 		}
