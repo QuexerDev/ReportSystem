@@ -73,6 +73,24 @@ public class ReportAPI {
 		}
 		return "§cNicht vorhanden§8!";
 	}
+	
+	public static String getServer(String name) {
+		String UUID = UUIDFetcher.getUUID(name).toString();
+		ResultSet rs = MySQL.getResult("SELECT * FROM Report WHERE UUID='"+UUID+"'");
+		List<String> names = new ArrayList<>();
+		try {
+			if(rs.next()) {
+				String von = rs.getString("Server");
+				return von;
+			} else {
+				return "§cNicht vorhanden§8!";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "§cNicht vorhanden§8!";
+	}
 	public static List<String> getReportetPlayers() {
 		ResultSet rs = MySQL.getResult("SELECT * FROM Report");
 		List<String> names = new ArrayList<>();
@@ -99,7 +117,7 @@ public class ReportAPI {
 		Player target = Bukkit.getPlayer(name);
 		if(isReportet(name)) {
 			accepter.sendMessage(Main.pf+"§7Du bearbeitest nun den Report von §c"+name+" §7auf dem Server §e"+target.getServer().getServerName());
-			ItemInteract.connect(accepter, target.getServer().getServerName());
+			ItemInteract.connect(accepter, getServer(name));
 			
 			for(String names : getReporter(name)) {
 				if(Bukkit.getPlayer(names) != null) {

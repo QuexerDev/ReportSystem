@@ -45,7 +45,7 @@ public class ReportAPI {
 		String UUID = UUIDFetcher.getUUID(name).toString();
 		int Count = getCount(name)+1;
 		if(!hatBereitsReportet(name, von)){
-		MySQL.update("INSERT INTO Report(UUID, Grund, von) VALUES ('"+UUID+"','"+Grund+"','"+von+"')");
+		MySQL.update("INSERT INTO Report(UUID, Grund, von, Server) VALUES ('"+UUID+"','"+Grund+"','"+von+"','"+target.getServer().getInfo().getName()+"')");
 		
 		reporter.sendMessage(Main.pf+"§7Du hast den Spieler §c"+name+" §7erfolgreich mit dem Grund§8: §e"+Grund+" §7gemeldet§8!");
 		
@@ -138,6 +138,23 @@ public class ReportAPI {
 		try {
 			if(rs.next()) {
 				String von = rs.getString("Grund");
+				return von;
+			} else {
+				return "§cNicht vorhanden§8!";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "§cNicht vorhanden§8!";
+	}
+	public static String getServer(String name) {
+		String UUID = UUIDFetcher.getUUID(name).toString();
+		ResultSet rs = MySQL.getResult("SELECT * FROM Report WHERE UUID='"+UUID+"'");
+		List<String> names = new ArrayList<>();
+		try {
+			if(rs.next()) {
+				String von = rs.getString("Server");
 				return von;
 			} else {
 				return "§cNicht vorhanden§8!";

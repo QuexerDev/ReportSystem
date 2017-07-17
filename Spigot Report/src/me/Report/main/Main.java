@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Report.database.MySQL;
 import me.Report.listeners.ItemInteract;
+import me.Report.utils.GetMessage;
 import net.md_5.bungee.api.ChatColor;
 
 
@@ -47,8 +48,9 @@ public class Main extends JavaPlugin{
         }
         
 
-
+//        this.getServer().getMessenger().registerIncomingPluginChannel(this, "Report", new GetMessage());
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+//        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "Report");
         
         
         loadConfig();

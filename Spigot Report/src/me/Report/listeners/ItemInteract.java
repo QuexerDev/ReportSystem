@@ -63,7 +63,8 @@ public class ItemInteract implements Listener {
 						meta.setDisplayName("§a"+name);
 						List<String> lore = new ArrayList<>();
 						lore.add("§7Grund§8: §e"+ReportAPI.getGrund(name));
-						lore.add("§7Klicke zum bearbeiten§8!");
+						lore.add("§7Server§8: §e"+ReportAPI.getServer(name));
+						lore.add("§7Klicke um zu diesem Server zu springen§8!");
 						meta.setLore(lore);
 						meta.setOwner(name);
 						is.setItemMeta(meta);
@@ -79,7 +80,8 @@ public class ItemInteract implements Listener {
 						meta.setDisplayName("§c"+name);
 						List<String> lore = new ArrayList<>();
 						lore.add("§7Grund§8: §e"+ReportAPI.getGrund(name));
-						lore.add("§7Klicke zum bearbeiten§8!");
+						lore.add("§7Server§8: §e"+ReportAPI.getServer(name));
+						lore.add("§7Klicke um zu diesem Server zu springen§8!");
 						lore.add("§4§lWichtiger Report§8!");
 						meta.setLore(lore);
 						meta.setOwner(name);
@@ -125,6 +127,7 @@ public class ItemInteract implements Listener {
 					
 					String name = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
 					ReportAPI.acceptReport(name, p.getName());
+					p.closeInventory();
 				}
 			}
 				

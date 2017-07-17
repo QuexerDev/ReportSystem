@@ -32,7 +32,7 @@ public class Main extends Plugin{
 		reasons.add("5");
 		reasons.add("6");
 		reasons.add("7");
-		
+//		getProxy().registerChannel("Report");
 		if(!ordner.exists()) {
 
             ordner.mkdir();

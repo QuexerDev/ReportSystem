@@ -77,7 +77,7 @@ public class MySQL {
         if(isConnected()){
             try {
 
-                con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS Report(UUID VARCHAR(100), Grund VARCHAR(100), von VARCHAR(100))");
+                con.createStatement().executeUpdate("CREATE TABLE IF NOT EXISTS Report(UUID VARCHAR(100), Grund VARCHAR(100), von VARCHAR(100), Server VARCHAR(100))");
                 
             } catch (SQLException e) {
                 e.printStackTrace();
